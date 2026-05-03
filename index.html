@@ -13,9 +13,9 @@
   --gold:#c9a84c;--gold2:#e8c97a;--gold-dim:rgba(201,168,76,0.12);
   --green:#4caf78;--green-dim:rgba(76,175,120,0.1);
   --amber:#e8924c;--amber-dim:rgba(232,146,76,0.1);
-  --red:#e05c5c;--red-dim:rgba(224,92,92,0.1)
+  --red:#e05c5c;--red-dim:rgba(224,92,92,0.1);
   --blue:#7b9de8;--blue-dim:rgba(123,157,232,0.1);
-  --purple:#a87de8;--purple-dim:rgba(168,125,232,0.1);
+  --purple:#a87de8;
   --text:#e8e6df;--text2:#9a9890;--text3:#5a5855;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -25,13 +25,13 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 /* HEADER */
 header{border-bottom:1px solid var(--border);padding:0 2rem;position:sticky;top:0;background:rgba(15,15,13,0.93);backdrop-filter:blur(12px);z-index:100;display:flex;align-items:center;justify-content:space-between;height:56px;}
-.logo{font-family:'Playfair Display',serif;font-size:18px;color:var(--gold);letter-spacing:0.02em;}
+.logo{font-family:'Playfair Display',serif;font-size:18px;color:var(--gold);}
 .logo span{color:var(--text2);font-size:12px;font-family:'DM Mono',monospace;margin-left:10px;font-weight:300;}
 .header-right{display:flex;align-items:center;gap:16px;}
 .live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
 .header-date{font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);}
-.btn-add-header{background:var(--gold);color:#0f0f0d;border:none;padding:6px 14px;border-radius:4px;font-size:12px;font-weight:500;cursor:pointer;letter-spacing:0.04em;}
+.btn-add-header{background:var(--gold);color:#0f0f0d;border:none;padding:6px 14px;border-radius:4px;font-size:12px;font-weight:500;cursor:pointer;}
 .btn-add-header:hover{background:var(--gold2);}
 
 /* LAYOUT */
@@ -52,11 +52,7 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;position:sticky;top:
 .section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
 .section-title{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;}
 .section-count{font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);}
-
-/* GRID */
 .main-grid{display:grid;grid-template-columns:1fr 380px;gap:2rem;align-items:start;}
-
-/* CARD */
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;overflow:hidden;}
 
 /* TABS */
@@ -66,16 +62,24 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;position:sticky;top:
 .tab.active{color:var(--gold);border-bottom-color:var(--gold);}
 .tab:hover:not(.active){color:var(--text2);}
 
-/* ANNONCE ITEMS */
+/* ══════════════════════════════════
+   ANNONCE CARD — with photo
+══════════════════════════════════ */
 .annonce-list{display:flex;flex-direction:column;}
-.annonce-item{padding:16px 18px;border-bottom:1px solid var(--border);transition:background 0.15s;}
+.annonce-item{border-bottom:1px solid var(--border);transition:background 0.15s;overflow:hidden;}
 .annonce-item:last-child{border-bottom:none;}
 .annonce-item:hover{background:rgba(255,255,255,0.015);}
 .annonce-item.hot{border-left:3px solid var(--gold);}
 .annonce-item.new{border-left:3px solid var(--green);}
 .annonce-item.user{border-left:3px solid var(--blue);}
-.annonce-main{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;margin-bottom:13px;}
-.annonce-top{display:flex;align-items:center;gap:6px;margin-bottom:5px;flex-wrap:wrap;}
+
+/* PHOTO BANNER */
+.annonce-photo{width:100%;height:180px;object-fit:cover;display:block;border-bottom:1px solid var(--border);background:var(--bg3);}
+.annonce-photo-placeholder{width:100%;height:120px;background:var(--bg3);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:11px;font-family:'DM Mono',monospace;letter-spacing:0.06em;}
+
+.annonce-body{padding:14px 18px 0;}
+.annonce-main{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;margin-bottom:12px;}
+.annonce-top{display:flex;align-items:center;gap:6px;margin-bottom:4px;flex-wrap:wrap;}
 .badge{font-family:'DM Mono',monospace;font-size:9px;padding:2px 7px;border-radius:2px;letter-spacing:0.06em;text-transform:uppercase;font-weight:500;}
 .badge.hot{background:var(--gold-dim);color:var(--gold);}
 .badge.new{background:var(--green-dim);color:var(--green);}
@@ -84,35 +88,44 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;position:sticky;top:
 .badge.over{background:var(--red-dim);color:var(--red);}
 .annonce-title{font-size:14px;font-weight:400;color:var(--text);line-height:1.4;}
 .annonce-zone{font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);margin-top:2px;}
-.annonce-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px;}
+.annonce-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;}
 .tag{font-size:11px;color:var(--text3);background:var(--bg3);border:1px solid var(--border);padding:2px 7px;border-radius:2px;}
 .annonce-link{font-size:11px;color:var(--gold);text-decoration:none;margin-top:5px;display:inline-block;}
 .annonce-link:hover{color:var(--gold2);}
 .annonce-note{font-size:12px;color:var(--text2);margin-top:5px;font-style:italic;line-height:1.5;}
-.annonce-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);margin-top:6px;}
+.annonce-meta{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);margin-top:6px;}
 .annonce-price{text-align:right;flex-shrink:0;}
 .price-val{font-family:'DM Mono',monospace;font-size:16px;color:var(--gold);}
 .price-sub{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);margin-top:2px;}
-.btn-delete{display:block;background:none;border:none;color:var(--text3);cursor:pointer;font-size:13px;padding:3px 5px;border-radius:2px;margin-top:8px;margin-left:auto;}
+.btn-delete{display:block;background:none;border:none;color:var(--text3);cursor:pointer;font-size:13px;padding:3px 5px;border-radius:2px;margin-top:6px;margin-left:auto;}
 .btn-delete:hover{color:var(--red);background:var(--red-dim);}
 .empty-state{padding:40px 18px;text-align:center;color:var(--text3);font-size:13px;line-height:1.8;}
 
 /* ══════════════════════════════════
+   STAR RATING
+══════════════════════════════════ */
+.star-row{display:flex;align-items:center;gap:6px;margin-top:8px;margin-bottom:2px;}
+.star-label{font-family:'DM Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:0.06em;text-transform:uppercase;}
+.stars{display:flex;gap:2px;}
+.star{font-size:16px;cursor:pointer;color:var(--text3);transition:color 0.1s,transform 0.1s;line-height:1;user-select:none;}
+.star:hover{transform:scale(1.2);}
+.star.filled{color:var(--gold);}
+.star-avg{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);margin-left:4px;}
+
+/* ══════════════════════════════════
    DÉMARCHE PIPELINE
 ══════════════════════════════════ */
-.demarche-wrap{border-top:1px solid var(--border);padding-top:12px;}
+.demarche-wrap{border-top:1px solid var(--border);padding:12px 18px 14px;}
 .demarche-label{font-family:'DM Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:9px;}
 .pipeline{display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
 .pipeline::-webkit-scrollbar{display:none;}
 .pipeline-step{display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;cursor:pointer;padding:4px 7px;border-radius:4px;transition:background 0.12s;}
 .pipeline-step:hover{background:rgba(255,255,255,0.04);}
-.step-dot{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--border2);background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:11px;transition:all 0.18s;position:relative;z-index:1;}
-.step-label{font-size:9px;color:var(--text3);font-family:'DM Mono',monospace;letter-spacing:0.03em;white-space:nowrap;transition:color 0.18s;}
-.pipeline-connector{width:14px;height:1.5px;background:var(--border2);flex-shrink:0;margin-bottom:14px;transition:background 0.18s;}
+.step-dot{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--border2);background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:11px;transition:all 0.18s;}
+.step-label{font-size:9px;color:var(--text3);font-family:'DM Mono',monospace;white-space:nowrap;transition:color 0.18s;}
+.pipeline-connector{width:14px;height:1.5px;background:var(--border2);flex-shrink:0;margin-bottom:14px;}
 .pipeline-connector.done{background:rgba(76,175,120,0.4);}
-
-/* Active step styles */
-.step-active-none    .step-dot{border-color:var(--text3);color:var(--text3);}
+.step-active-none    .step-dot{border-color:var(--text3);}
 .step-active-contact .step-dot{background:#1a3a5a;border-color:var(--blue);color:var(--blue);}
 .step-active-contact .step-label{color:var(--blue);}
 .step-active-sent    .step-dot{background:#1a3a1a;border-color:var(--green);color:var(--green);}
@@ -125,22 +138,15 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;position:sticky;top:
 .step-active-refused .step-label{color:var(--red);}
 .step-active-won     .step-dot{background:#1a3a2a;border-color:var(--green);color:var(--green);box-shadow:0 0 10px rgba(76,175,120,0.5);}
 .step-active-won     .step-label{color:var(--green);}
-
-/* Past step */
 .step-past .step-dot{background:#1e2e1e;border-color:#2e4e2e;color:#2e6e2e;font-size:9px;}
-
-/* Timeline history */
 .demarche-history{margin-top:7px;display:flex;flex-direction:column;gap:3px;}
-.history-item{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);display:flex;gap:7px;line-height:1.4;}
-.h-date{color:var(--text3);flex-shrink:0;}
-.h-action{color:var(--text2);}
-
-/* Note input */
+.history-item{font-family:'DM Mono',monospace;font-size:10px;display:flex;gap:7px;line-height:1.4;}
+.h-date{color:var(--text3);flex-shrink:0;}.h-action{color:var(--text2);}
 .demarche-note-wrap{margin-top:8px;display:flex;gap:6px;align-items:flex-start;}
-.demarche-note-input{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:3px;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:11px;padding:5px 8px;outline:none;transition:border-color 0.15s,height 0.15s;resize:none;height:28px;overflow:hidden;}
-.demarche-note-input:focus{border-color:var(--gold);height:52px;overflow:auto;}
+.demarche-note-input{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:3px;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:11px;padding:5px 8px;outline:none;transition:border-color 0.15s;resize:none;height:28px;}
+.demarche-note-input:focus{border-color:var(--gold);height:52px;}
 .demarche-note-input::placeholder{color:var(--text3);}
-.btn-save-note{background:var(--bg3);border:1px solid var(--border2);border-radius:3px;color:var(--text3);font-size:10px;padding:5px 9px;cursor:pointer;font-family:'DM Mono',monospace;white-space:nowrap;flex-shrink:0;letter-spacing:0.04em;}
+.btn-save-note{background:var(--bg3);border:1px solid var(--border2);border-radius:3px;color:var(--text3);font-size:10px;padding:5px 9px;cursor:pointer;font-family:'DM Mono',monospace;white-space:nowrap;flex-shrink:0;}
 .btn-save-note:hover{color:var(--gold);border-color:var(--gold);}
 
 /* RIGHT COL */
@@ -149,8 +155,6 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;position:sticky;top:
 .stat{display:flex;flex-direction:column;gap:3px;}
 .stat-val{font-family:'DM Mono',monospace;font-size:20px;color:var(--text);}
 .stat-label{font-size:11px;color:var(--text3);}
-
-/* Pipeline summary */
 .pipeline-summary{display:flex;flex-direction:column;}
 .ps-row{display:flex;align-items:center;justify-content:space-between;padding:9px 16px;border-bottom:1px solid var(--border);}
 .ps-row:last-child{border-bottom:none;}
@@ -159,23 +163,26 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;position:sticky;top:
 .ps-label{font-size:12px;color:var(--text2);}
 .ps-count{font-family:'DM Mono',monospace;font-size:14px;color:var(--text);}
 
-/* Intel */
+/* TOP RATED */
+.top-rated-list{display:flex;flex-direction:column;}
+.tr-item{display:flex;align-items:center;justify-content:space-between;padding:9px 16px;border-bottom:1px solid var(--border);gap:8px;}
+.tr-item:last-child{border-bottom:none;}
+.tr-title{font-size:12px;color:var(--text);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.tr-stars{font-size:12px;color:var(--gold);flex-shrink:0;}
+.tr-price{font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);flex-shrink:0;}
+
 .intel-list{display:flex;flex-direction:column;}
 .intel-item{padding:11px 16px;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start;}
 .intel-item:last-child{border-bottom:none;}
 .intel-dot{width:5px;height:5px;border-radius:50%;margin-top:7px;flex-shrink:0;}
 .intel-text{font-size:12px;color:var(--text2);line-height:1.6;}
 .intel-text strong{color:var(--text);font-weight:400;}
-
-/* Zone bars */
 .zone-bars{display:flex;flex-direction:column;gap:8px;padding:14px 16px;}
 .zone-bar-row{display:flex;align-items:center;gap:10px;}
 .zone-bar-label{font-size:11px;color:var(--text2);min-width:115px;}
 .zone-bar-bg{flex:1;background:var(--bg3);border-radius:2px;height:5px;}
 .zone-bar-fill{height:100%;border-radius:2px;}
 .zone-bar-val{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);min-width:60px;text-align:right;}
-
-/* Search links */
 .search-links{display:flex;flex-direction:column;}
 .search-link{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--border);text-decoration:none;color:var(--text);transition:background 0.12s;font-size:13px;}
 .search-link:last-child{border-bottom:none;}
@@ -184,7 +191,7 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;position:sticky;top:
 /* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity 0.2s;}
 .modal-overlay.open{opacity:1;pointer-events:all;}
-.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:8px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;transform:translateY(10px);transition:transform 0.2s;}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:8px;width:100%;max-width:580px;max-height:90vh;overflow-y:auto;transform:translateY(10px);transition:transform 0.2s;}
 .modal-overlay.open .modal{transform:translateY(0);}
 .modal-header{padding:20px 24px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
 .modal-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--gold);}
@@ -193,29 +200,26 @@ header{border-bottom:1px solid var(--border);padding:0 2rem;position:sticky;top:
 .modal-body{padding:20px 24px;display:flex;flex-direction:column;gap:14px;}
 .form-group{display:flex;flex-direction:column;gap:6px;}
 .form-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase;}
+.form-hint{font-size:11px;color:var(--text3);margin-top:2px;}
 .form-input,.form-select,.form-textarea{background:var(--bg3);border:1px solid var(--border2);border-radius:4px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;padding:9px 12px;outline:none;transition:border-color 0.15s;width:100%;}
 .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--gold);}
 .form-select option{background:var(--bg2);}
 .form-textarea{resize:vertical;min-height:72px;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.btn-submit{background:var(--gold);color:#0f0f0d;border:none;padding:10px 20px;border-radius:4px;font-size:13px;font-weight:500;cursor:pointer;letter-spacing:0.04em;}
+/* Star picker in modal */
+.form-stars{display:flex;gap:4px;margin-top:2px;}
+.form-star{font-size:22px;cursor:pointer;color:var(--text3);transition:color 0.1s,transform 0.1s;line-height:1;user-select:none;}
+.form-star:hover,.form-star.sel{color:var(--gold);}
+.form-star:hover{transform:scale(1.15);}
+.btn-submit{background:var(--gold);color:#0f0f0d;border:none;padding:10px 20px;border-radius:4px;font-size:13px;font-weight:500;cursor:pointer;}
 .btn-submit:hover{background:var(--gold2);}
 .btn-cancel{background:transparent;border:1px solid var(--border2);color:var(--text2);padding:10px 16px;border-radius:4px;font-size:13px;cursor:pointer;}
 .btn-cancel:hover{background:var(--bg3);}
 .form-actions{display:flex;gap:10px;justify-content:flex-end;}
-
-/* NOTIF */
 .notif{position:fixed;bottom:24px;right:24px;background:var(--bg2);border:1px solid var(--border2);border-radius:6px;padding:12px 18px;font-size:13px;color:var(--text);z-index:2000;transform:translateY(20px);opacity:0;transition:all 0.2s;pointer-events:none;}
 .notif.show{transform:translateY(0);opacity:1;}
-
 footer{border-top:1px solid var(--border);margin-top:3rem;padding:1.5rem 2rem;text-align:center;font-size:11px;color:var(--text3);font-family:'DM Mono',monospace;}
-
-@media(max-width:900px){
-  .main-grid{grid-template-columns:1fr;}
-  .container{padding:1rem;}
-  header{padding:0 1rem;}
-  .header-date{display:none;}
-}
+@media(max-width:900px){.main-grid{grid-template-columns:1fr;}.container{padding:1rem;}header{padding:0 1rem;}.header-date{display:none;}}
 </style>
 </head>
 <body>
@@ -270,6 +274,21 @@ footer{border-top:1px solid var(--border);margin-top:3rem;padding:1.5rem 2rem;te
       <div class="form-group">
         <label class="form-label">Lien annonce</label>
         <input class="form-input" id="f-url" placeholder="https://www.seloger.com/..." type="url"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Photo — URL image principale</label>
+        <input class="form-input" id="f-photo" placeholder="https://... (lien direct vers la photo)"/>
+        <div class="form-hint">Colle l'URL de la photo principale de l'annonce. Via Chrome, Claude peut la récupérer automatiquement.</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Note initiale ⭐</label>
+        <div class="form-stars" id="form-stars">
+          <span class="form-star" data-v="1" onclick="setFormRating(1)">★</span>
+          <span class="form-star" data-v="2" onclick="setFormRating(2)">★</span>
+          <span class="form-star" data-v="3" onclick="setFormRating(3)">★</span>
+          <span class="form-star" data-v="4" onclick="setFormRating(4)">★</span>
+          <span class="form-star" data-v="5" onclick="setFormRating(5)">★</span>
+        </div>
       </div>
       <div class="form-group">
         <label class="form-label">Tags (virgules)</label>
@@ -331,10 +350,10 @@ footer{border-top:1px solid var(--border);margin-top:3rem;padding:1.5rem 2rem;te
         <div class="tabs">
           <div class="tab active" onclick="filterTab('all',this)">Toutes</div>
           <div class="tab" onclick="filterTab('hot',this)">Chaudes</div>
-          <div class="tab" onclick="filterTab('new',this)">Nouvelles</div>
-          <div class="tab" onclick="filterTab('user',this)">Trouvées</div>
+          <div class="tab" onclick="filterTab('top',this)">⭐ Top notées</div>
           <div class="tab" onclick="filterTab('active',this)">En cours</div>
           <div class="tab" onclick="filterTab('visit',this)">Visites</div>
+          <div class="tab" onclick="filterTab('user',this)">Trouvées</div>
         </div>
         <div class="annonce-list" id="annonce-list">
           <div class="empty-state">Chargement…</div>
@@ -357,6 +376,16 @@ footer{border-top:1px solid var(--border);margin-top:3rem;padding:1.5rem 2rem;te
         </div>
       </div>
 
+      <!-- TOP RATED -->
+      <div>
+        <div class="section-head"><div class="section-title">Meilleures notes</div></div>
+        <div class="card">
+          <div class="top-rated-list" id="top-rated-list">
+            <div class="empty-state" style="padding:20px">Aucune note encore</div>
+          </div>
+        </div>
+      </div>
+
       <!-- PIPELINE SUMMARY -->
       <div>
         <div class="section-head"><div class="section-title">Suivi des démarches</div></div>
@@ -368,7 +397,7 @@ footer{border-top:1px solid var(--border);margin-top:3rem;padding:1.5rem 2rem;te
             <div class="ps-row"><div class="ps-left"><div class="ps-dot" style="background:var(--amber)"></div><div class="ps-label">Visite programmée</div></div><div class="ps-count" id="ps-visit">—</div></div>
             <div class="ps-row"><div class="ps-left"><div class="ps-dot" style="background:var(--purple)"></div><div class="ps-label">Candidature déposée</div></div><div class="ps-count" id="ps-applied">—</div></div>
             <div class="ps-row"><div class="ps-left"><div class="ps-dot" style="background:var(--red)"></div><div class="ps-label">Refusé / Déjà loué</div></div><div class="ps-count" id="ps-refused">—</div></div>
-            <div class="ps-row"><div class="ps-left"><div class="ps-dot" style="background:var(--green);box-shadow:0 0 6px var(--green)"></div><div class="ps-label" style="color:var(--text);font-weight:400">C'est le bon !</div></div><div class="ps-count" id="ps-won">—</div></div>
+            <div class="ps-row"><div class="ps-left"><div class="ps-dot" style="background:var(--green);box-shadow:0 0 6px var(--green)"></div><div class="ps-label" style="color:var(--text)">C'est le bon !</div></div><div class="ps-count" id="ps-won">—</div></div>
           </div>
         </div>
       </div>
@@ -432,65 +461,66 @@ import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot, query, or
 // ════════════════════════════════════════════
 // ⚙️  CONFIG FIREBASE — à personnaliser
 //  https://console.firebase.google.com
-//  Projet → ⚙️ Paramètres → Tes apps web
 // ════════════════════════════════════════════
 const firebaseConfig = {
-  apiKey:            "AIzaSyCnSmOA4NIyw-r_m1Fezs3Qas-hV4f4NEU",
-  authDomain:        "veille-immo-a0534.firebaseapp.com",
-  projectId:         "veille-immo-a0534",
-  storageBucket:     "veille-immo-a0534.firebasestorage.app",
-  messagingSenderId: "383476658161",
-  appId:             "1:383476658161:web:1eafcc14bb4ef7c0805e50"
+  apiKey:            "REMPLACE_PAR_TON_API_KEY",
+  authDomain:        "REMPLACE.firebaseapp.com",
+  projectId:         "REMPLACE_PAR_TON_PROJECT_ID",
+  storageBucket:     "REMPLACE.appspot.com",
+  messagingSenderId: "000000000000",
+  appId:             "REMPLACE_PAR_TON_APP_ID"
 };
 // ════════════════════════════════════════════
 
 const STEPS = [
-  { key:'none',    icon:'○', label:'À faire'     },
-  { key:'contact', icon:'✉', label:'Contacté'    },
-  { key:'sent',    icon:'⊞', label:'Dossier'     },
-  { key:'visit',   icon:'⌂', label:'Visite'      },
-  { key:'applied', icon:'✍', label:'Candidature' },
-  { key:'refused', icon:'✕', label:'Refusé'      },
-  { key:'won',     icon:'★', label:'Retenu !'    },
+  {key:'none',icon:'○',label:'À faire'},
+  {key:'contact',icon:'✉',label:'Contacté'},
+  {key:'sent',icon:'⊞',label:'Dossier'},
+  {key:'visit',icon:'⌂',label:'Visite'},
+  {key:'applied',icon:'✍',label:'Candidature'},
+  {key:'refused',icon:'✕',label:'Refusé'},
+  {key:'won',icon:'★',label:'Retenu !'},
 ];
-const STEP_KEYS = STEPS.map(s => s.key);
+const STEP_KEYS = STEPS.map(s=>s.key);
 
 let db, col;
 let allAnnonces = [];
 let currentFilter = 'all';
+let formRating = 0;
 
 try {
   const app = initializeApp(firebaseConfig);
   db = getFirestore(app);
-  col = collection(db, 'annonces');
-  onSnapshot(query(col, orderBy('createdAt','desc')), snap => {
-    allAnnonces = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-    renderAnnonces(); updateStats();
+  col = collection(db,'annonces');
+  onSnapshot(query(col,orderBy('createdAt','desc')), snap => {
+    allAnnonces = snap.docs.map(d=>({id:d.id,...d.data()}));
+    renderAnnonces(); updateStats(); updateTopRated();
   });
 } catch(e) { loadDemo(); }
 
 function loadDemo() {
   allAnnonces = [
-    { id:'demo1', title:'T2 meublé 41m² — résidence sécurisée, parking inclus', zone:'Ivry-sur-Seine (94)', price:940, surface:41, status:'hot', tags:['Parking','Métro 7','RER C','Meublé'], url:'https://www.seloger.com', note:'Immeuble 1998 refait à neuf. À 3 min du Métro 7. Excellent rapport qualité/prix.', author:'Démo', demarche:'visit', demandeHistory:[{date:'02 mai',action:'Contact pris — appel au propriétaire'},{date:'03 mai',action:'Visite programmée — samedi 10h'}], createdAt:{toDate:()=>new Date('2025-05-01')} },
-    { id:'demo2', title:'T2 45m² — 2ème étage, double vitrage, cave', zone:'Vitry-sur-Seine (94)', price:870, surface:45, status:'new', tags:['Cave','RER C','Tram T9'], url:'https://www.leboncoin.fr', note:'Futur Grand Paris ligne 15 à 500m. Quartier calme.', author:'Démo', demarche:'contact', demandeHistory:[{date:'03 mai',action:'Message envoyé sur LeBonCoin'}], createdAt:{toDate:()=>new Date('2025-05-02')} },
-    { id:'demo3', title:'T2 47m² — proche Métro 9, box fermé en sous-sol', zone:'Montreuil (93)', price:990, surface:47, status:'hot', tags:['Box fermé','Métro 9','Proche Paris'], url:'https://www.pap.fr', note:'Particulier, pas de frais agence. Disponible de suite.', author:'Démo', demarche:'sent', demandeHistory:[{date:'01 mai',action:'Contact pris par téléphone'},{date:'02 mai',action:'Dossier envoyé par email'}], createdAt:{toDate:()=>new Date('2025-05-02')} },
-    { id:'demo4', title:'T2 57m² — RER B, parking en sous-sol sécurisé', zone:'Cachan / Arcueil (94)', price:1050, surface:57, status:'new', tags:['RER B','Parking sécurisé'], url:'https://www.seloger.com', note:'Légèrement au-dessus du budget mais très grand pour le secteur.', author:'Démo', demarche:'none', demandeHistory:[], createdAt:{toDate:()=>new Date('2025-05-01')} },
-    { id:'demo5', title:'T2 38m² — résidence neuve 2025, parking', zone:'Noisy-le-Sec (93)', price:820, surface:38, status:'new', tags:['RER B','Résidence neuve','Parking'], url:'https://www.bienici.com', note:'Résidence neuve livrée en 2025, premiers locataires.', author:'Démo', demarche:'none', demandeHistory:[], createdAt:{toDate:()=>new Date('2025-04-30')} },
+    {id:'demo1',title:'T2 meublé 41m² — résidence sécurisée, parking inclus',zone:'Ivry-sur-Seine (94)',price:940,surface:41,status:'hot',tags:['Parking','Métro 7','RER C','Meublé'],url:'https://www.seloger.com',photo:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80',note:'Immeuble 1998 refait à neuf. À 3 min du Métro 7.',author:'Démo',rating:5,demarche:'visit',demandeHistory:[{date:'02 mai',action:'Contact pris'},{date:'03 mai',action:'Visite programmée — samedi 10h'}],createdAt:{toDate:()=>new Date('2025-05-01')}},
+    {id:'demo2',title:'T2 45m² — 2ème étage, double vitrage, cave',zone:'Vitry-sur-Seine (94)',price:870,surface:45,status:'new',tags:['Cave','RER C','Tram T9'],url:'https://www.leboncoin.fr',photo:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80',note:'Futur Grand Paris ligne 15 à 500m.',author:'Démo',rating:4,demarche:'contact',demandeHistory:[{date:'03 mai',action:'Message envoyé sur LeBonCoin'}],createdAt:{toDate:()=>new Date('2025-05-02')}},
+    {id:'demo3',title:'T2 47m² — proche Métro 9, box fermé en sous-sol',zone:'Montreuil (93)',price:990,surface:47,status:'hot',tags:['Box fermé','Métro 9'],url:'https://www.pap.fr',photo:'',note:'Particulier, pas de frais agence.',author:'Démo',rating:3,demarche:'sent',demandeHistory:[{date:'01 mai',action:'Contact pris'},{date:'02 mai',action:'Dossier envoyé'}],createdAt:{toDate:()=>new Date('2025-05-02')}},
+    {id:'demo4',title:'T2 57m² — RER B, parking en sous-sol sécurisé',zone:'Cachan / Arcueil (94)',price:1050,surface:57,status:'new',tags:['RER B','Parking sécurisé'],url:'https://www.seloger.com',photo:'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&q=80',note:'Légèrement au-dessus du budget mais très grand.',author:'Démo',rating:4,demarche:'none',demandeHistory:[],createdAt:{toDate:()=>new Date('2025-05-01')}},
+    {id:'demo5',title:'T2 38m² — résidence neuve 2025, parking',zone:'Noisy-le-Sec (93)',price:820,surface:38,status:'new',tags:['RER B','Résidence neuve','Parking'],url:'https://www.bienici.com',photo:'',note:'Résidence neuve livrée en 2025.',author:'Démo',rating:0,demarche:'none',demandeHistory:[],createdAt:{toDate:()=>new Date('2025-04-30')}},
   ];
-  renderAnnonces(); updateStats();
+  renderAnnonces(); updateStats(); updateTopRated();
 }
 
 // ── RENDER ──
 window.renderAnnonces = function() {
   const list = document.getElementById('annonce-list');
-  let items = allAnnonces;
-  if (currentFilter === 'active') items = items.filter(a => a.demarche && a.demarche !== 'none' && a.demarche !== 'refused' && a.demarche !== 'won');
-  else if (currentFilter === 'visit') items = items.filter(a => a.demarche === 'visit');
-  else if (currentFilter !== 'all') items = items.filter(a => a.status === currentFilter);
+  let items = [...allAnnonces];
+  if (currentFilter === 'active') items = items.filter(a=>a.demarche&&a.demarche!=='none'&&a.demarche!=='refused'&&a.demarche!=='won');
+  else if (currentFilter === 'visit') items = items.filter(a=>a.demarche==='visit');
+  else if (currentFilter === 'top') items = items.filter(a=>(a.rating||0)>=4).sort((a,b)=>(b.rating||0)-(a.rating||0));
+  else if (currentFilter !== 'all') items = items.filter(a=>a.status===currentFilter);
 
   const n = items.length;
-  document.getElementById('annonce-count').textContent = n + ' annonce' + (n !== 1 ? 's' : '');
-  list.innerHTML = n === 0
+  document.getElementById('annonce-count').textContent = n+' annonce'+(n!==1?'s':'');
+  list.innerHTML = n===0
     ? '<div class="empty-state">Aucune annonce ici.<br>Clique sur <strong>+ Ajouter une annonce</strong>.</div>'
     : items.map(renderItem).join('');
 }
@@ -503,39 +533,56 @@ function renderItem(a) {
   const noteHtml = a.note ? `<div class="annonce-note">"${a.note}"</div>` : '';
   const isDemo = a.id.startsWith('demo');
   const delBtn = isDemo ? '' : `<button class="btn-delete" onclick="deleteAnnonce('${a.id}')" title="Supprimer">✕</button>`;
-  const budgetBadge = a.price > 1000 ? `<span class="badge ${a.price<=1100?'tight':'over'}">${a.price<=1100?'Budget serré':'Hors budget'}</span>` : '';
-  const cur = a.demarche || 'none';
+  const budgetBadge = a.price>1000 ? `<span class="badge ${a.price<=1100?'tight':'over'}">${a.price<=1100?'Budget serré':'Hors budget'}</span>` : '';
+  const cur = a.demarche||'none';
   const curIdx = STEP_KEYS.indexOf(cur);
 
-  const pipeHtml = STEPS.map((s,i) => {
-    const isAct = s.key === cur;
-    const isPast = STEP_KEYS.indexOf(s.key) < curIdx;
-    const dotClass = isAct ? `step-active-${s.key}` : (isPast ? 'step-past' : '');
-    const conn = i < STEPS.length-1 ? `<div class="pipeline-connector${isPast?'':''} ${isPast?'done':''}"></div>` : '';
-    const icon = isAct ? s.icon : (isPast ? '✓' : '');
-    return `
-      <div class="pipeline-step ${dotClass}" onclick="updateDemarche('${a.id}','${s.key}')" title="${s.label}">
-        <div class="step-dot">${icon}</div>
-        <div class="step-label">${s.label}</div>
-      </div>${conn}`;
+  // PHOTO
+  const photoHtml = a.photo
+    ? `<img class="annonce-photo" src="${a.photo}" alt="Photo annonce" onerror="this.style.display='none'">`
+    : '';
+
+  // STARS (interactive)
+  const rating = a.rating || 0;
+  const starsHtml = `
+    <div class="star-row">
+      <span class="star-label">Note :</span>
+      <div class="stars">
+        ${[1,2,3,4,5].map(v=>`<span class="star ${v<=rating?'filled':''}" onclick="setRating('${a.id}',${v})" title="${v} étoile${v>1?'s':''}">${v<=rating?'★':'☆'}</span>`).join('')}
+      </div>
+      ${rating>0?`<span class="star-avg">${rating}/5</span>`:'<span class="star-avg">non noté</span>'}
+    </div>`;
+
+  // PIPELINE
+  const pipeHtml = STEPS.map((s,i)=>{
+    const isAct = s.key===cur;
+    const isPast = STEP_KEYS.indexOf(s.key)<curIdx;
+    const cls = isAct?`step-active-${s.key}`:(isPast?'step-past':'');
+    const icon = isAct?s.icon:(isPast?'✓':'');
+    const conn = i<STEPS.length-1?`<div class="pipeline-connector ${isPast?'done':''}"></div>`:'';
+    return `<div class="pipeline-step ${cls}" onclick="updateDemarche('${a.id}','${s.key}')" title="${s.label}"><div class="step-dot">${icon}</div><div class="step-label">${s.label}</div></div>${conn}`;
   }).join('');
 
   const hist = (a.demandeHistory||[]).slice().reverse().slice(0,4);
-  const histHtml = hist.length ? `<div class="demarche-history">${hist.map(h=>`<div class="history-item"><span class="h-date">${h.date}</span><span class="h-action">→ ${h.action}</span></div>`).join('')}</div>` : '';
+  const histHtml = hist.length?`<div class="demarche-history">${hist.map(h=>`<div class="history-item"><span class="h-date">${h.date}</span><span class="h-action">→ ${h.action}</span></div>`).join('')}</div>`:'';
 
   return `<div class="annonce-item ${a.status}" data-id="${a.id}">
-    <div class="annonce-main">
-      <div>
-        <div class="annonce-top"><span class="badge ${a.status}">${labels[a.status]||'Annonce'}</span>${budgetBadge}</div>
-        <div class="annonce-title">${a.title}</div>
-        <div class="annonce-zone">${a.zone}${a.surface?' · '+a.surface+' m²':''}</div>
-        <div class="annonce-tags">${tags}</div>
-        ${urlHtml}${noteHtml}
-        <div class="annonce-date">${date} · par ${a.author||'Anonyme'}</div>
-      </div>
-      <div class="annonce-price">
-        <div class="price-val">${Number(a.price).toLocaleString('fr-FR')} €</div>
-        <div class="price-sub">/mois</div>${delBtn}
+    ${photoHtml}
+    <div class="annonce-body">
+      <div class="annonce-main">
+        <div>
+          <div class="annonce-top"><span class="badge ${a.status}">${labels[a.status]||'Annonce'}</span>${budgetBadge}</div>
+          <div class="annonce-title">${a.title}</div>
+          <div class="annonce-zone">${a.zone}${a.surface?' · '+a.surface+' m²':''}</div>
+          ${starsHtml}
+          <div class="annonce-tags">${tags}</div>
+          ${urlHtml}${noteHtml}
+          <div class="annonce-meta">${date} · par ${a.author||'Anonyme'}</div>
+        </div>
+        <div class="annonce-price">
+          <div class="price-val">${Number(a.price).toLocaleString('fr-FR')} €</div>
+          <div class="price-sub">/mois</div>${delBtn}
+        </div>
       </div>
     </div>
     <div class="demarche-wrap">
@@ -543,44 +590,73 @@ function renderItem(a) {
       <div class="pipeline">${pipeHtml}</div>
       ${histHtml}
       <div class="demarche-note-wrap">
-        <textarea class="demarche-note-input" id="dn-${a.id}" placeholder="Ajouter une note (rendez-vous, contact, remarque…)"></textarea>
+        <textarea class="demarche-note-input" id="dn-${a.id}" placeholder="Ajouter une note…"></textarea>
         <button class="btn-save-note" onclick="saveDemarcheNote('${a.id}')">+ note</button>
       </div>
     </div>
   </div>`;
 }
 
+// ── SET RATING ──
+window.setRating = async function(id, val) {
+  const a = allAnnonces.find(x=>x.id===id);
+  if (!a) return;
+  // Toggle off if same
+  const newRating = a.rating === val ? 0 : val;
+  if (db && !id.startsWith('demo')) {
+    await updateDoc(doc(db,'annonces',id),{rating:newRating}).catch(()=>showNotif('Erreur Firebase'));
+  } else {
+    a.rating = newRating; renderAnnonces(); updateTopRated();
+  }
+  showNotif(newRating ? `Noté ${newRating}/5 ⭐` : 'Note retirée');
+}
+
+// ── TOP RATED ──
+window.updateTopRated = function() {
+  const el = document.getElementById('top-rated-list');
+  const top = [...allAnnonces].filter(a=>(a.rating||0)>0).sort((a,b)=>(b.rating||0)-(a.rating||0)).slice(0,5);
+  if (!top.length) { el.innerHTML='<div class="empty-state" style="padding:20px">Aucune note encore</div>'; return; }
+  el.innerHTML = top.map(a=>`
+    <div class="tr-item">
+      <div class="tr-title" title="${a.title}">${a.title}</div>
+      <div class="tr-stars">${'★'.repeat(a.rating||0)}</div>
+      <div class="tr-price">${Number(a.price).toLocaleString('fr-FR')} €</div>
+    </div>`).join('');
+}
+
+// ── FORM STAR RATING ──
+window.setFormRating = function(v) {
+  formRating = formRating===v?0:v;
+  document.querySelectorAll('.form-star').forEach(s=>{
+    s.classList.toggle('sel', parseInt(s.dataset.v)<=formRating);
+  });
+}
+
 // ── UPDATE DEMARCHE ──
 window.updateDemarche = async function(id, key) {
-  const a = allAnnonces.find(x => x.id === id);
-  if (!a || a.demarche === key) return;
+  const a = allAnnonces.find(x=>x.id===id);
+  if (!a||a.demarche===key) return;
   const label = STEPS.find(s=>s.key===key)?.label||key;
   const today = new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'short'});
-  const newHist = [...(a.demandeHistory||[]), {date:today, action:label}];
-  if (db && !id.startsWith('demo')) {
-    await updateDoc(doc(db,'annonces',id), {demarche:key, demandeHistory:newHist}).catch(()=>showNotif('Erreur Firebase'));
-  } else {
-    a.demarche = key; a.demandeHistory = newHist;
-    renderAnnonces(); updateStats();
-  }
-  showNotif('Étape : ' + label);
+  const newHist = [...(a.demandeHistory||[]),{date:today,action:label}];
+  if (db&&!id.startsWith('demo')) {
+    await updateDoc(doc(db,'annonces',id),{demarche:key,demandeHistory:newHist}).catch(()=>showNotif('Erreur Firebase'));
+  } else { a.demarche=key; a.demandeHistory=newHist; renderAnnonces(); updateStats(); }
+  showNotif('Étape : '+label);
 }
 
 // ── SAVE NOTE ──
 window.saveDemarcheNote = async function(id) {
   const el = document.getElementById('dn-'+id);
-  if (!el || !el.value.trim()) return;
+  if (!el||!el.value.trim()) return;
   const a = allAnnonces.find(x=>x.id===id);
   if (!a) return;
   const today = new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'short'});
-  const newHist = [...(a.demandeHistory||[]), {date:today, action:el.value.trim()}];
-  if (db && !id.startsWith('demo')) {
-    await updateDoc(doc(db,'annonces',id), {demandeHistory:newHist}).catch(()=>showNotif('Erreur Firebase'));
-  } else {
-    a.demandeHistory = newHist; renderAnnonces(); updateStats();
-  }
-  el.value = '';
-  showNotif('Note ajoutée !');
+  const newHist = [...(a.demandeHistory||[]),{date:today,action:el.value.trim()}];
+  if (db&&!id.startsWith('demo')) {
+    await updateDoc(doc(db,'annonces',id),{demandeHistory:newHist}).catch(()=>showNotif('Erreur Firebase'));
+  } else { a.demandeHistory=newHist; renderAnnonces(); updateStats(); }
+  el.value=''; showNotif('Note ajoutée !');
 }
 
 // ── STATS ──
@@ -589,15 +665,12 @@ window.updateStats = function() {
   document.getElementById('stat-hot').textContent = allAnnonces.filter(a=>a.status==='hot').length;
   document.getElementById('stat-budget').textContent = allAnnonces.filter(a=>a.price<=1000).length;
   document.getElementById('stat-active').textContent = allAnnonces.filter(a=>a.demarche&&a.demarche!=='none'&&a.demarche!=='refused'&&a.demarche!=='won').length;
-  STEP_KEYS.forEach(k => {
-    const el = document.getElementById('ps-'+k);
-    if (el) el.textContent = allAnnonces.filter(a=>(a.demarche||'none')===k).length;
-  });
+  STEP_KEYS.forEach(k=>{ const e=document.getElementById('ps-'+k); if(e) e.textContent=allAnnonces.filter(a=>(a.demarche||'none')===k).length; });
 }
 
 // ── FILTER ──
-window.filterTab = function(f, el) {
-  currentFilter = f;
+window.filterTab = function(f,el) {
+  currentFilter=f;
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
   renderAnnonces();
@@ -611,14 +684,15 @@ window.submitAnnonce = async function() {
   const surface = parseInt(document.getElementById('f-surface').value)||null;
   const status = document.getElementById('f-status').value;
   const url    = document.getElementById('f-url').value.trim();
+  const photo  = document.getElementById('f-photo').value.trim();
   const tags   = document.getElementById('f-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
   const note   = document.getElementById('f-note').value.trim();
   const author = document.getElementById('f-author').value.trim()||'Anonyme';
   if (!zone||!price||!title){ showNotif('Zone, prix et titre requis.'); return; }
-  const data = {zone,price,title,surface,status,url,tags,note,author,demarche:'none',demandeHistory:[],createdAt:new Date()};
+  const data = {zone,price,title,surface,status,url,photo,tags,note,author,rating:formRating,demarche:'none',demandeHistory:[],createdAt:new Date()};
   try {
-    if (db) { data.createdAt = serverTimestamp(); await addDoc(col, data); }
-    else { data.id='local_'+Date.now(); data.createdAt={toDate:()=>new Date()}; allAnnonces.unshift(data); renderAnnonces(); updateStats(); }
+    if (db) { data.createdAt=serverTimestamp(); await addDoc(col,data); }
+    else { data.id='local_'+Date.now(); data.createdAt={toDate:()=>new Date()}; allAnnonces.unshift(data); renderAnnonces(); updateStats(); updateTopRated(); }
     closeModal(); clearForm(); showNotif('Annonce ajoutée !');
   } catch(e) { showNotif('Erreur — vérifie la config Firebase.'); }
 }
@@ -627,29 +701,24 @@ window.submitAnnonce = async function() {
 window.deleteAnnonce = async function(id) {
   if (!confirm('Supprimer cette annonce ?')) return;
   if (db) { await deleteDoc(doc(db,'annonces',id)).catch(()=>showNotif('Erreur.')); }
-  else { allAnnonces = allAnnonces.filter(a=>a.id!==id); renderAnnonces(); updateStats(); }
+  else { allAnnonces=allAnnonces.filter(a=>a.id!==id); renderAnnonces(); updateStats(); updateTopRated(); }
   showNotif('Annonce supprimée.');
 }
 
-// ── UI HELPERS ──
-window.openModal  = () => document.getElementById('modal-overlay').classList.add('open');
-window.closeModal = () => document.getElementById('modal-overlay').classList.remove('open');
-window.handleOverlayClick = e => { if (e.target.id==='modal-overlay') closeModal(); };
+// ── UI ──
+window.openModal  = ()=>document.getElementById('modal-overlay').classList.add('open');
+window.closeModal = ()=>document.getElementById('modal-overlay').classList.remove('open');
+window.handleOverlayClick = e=>{ if(e.target.id==='modal-overlay') closeModal(); };
 function clearForm() {
-  ['f-zone','f-price','f-title','f-surface','f-url','f-tags','f-note','f-author'].forEach(id=>document.getElementById(id).value='');
+  ['f-zone','f-price','f-title','f-surface','f-url','f-photo','f-tags','f-note','f-author'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('f-status').value='new';
+  formRating=0; document.querySelectorAll('.form-star').forEach(s=>s.classList.remove('sel'));
 }
 let _nt;
-window.showNotif = msg => {
-  const el = document.getElementById('notif');
-  el.textContent = msg; el.classList.add('show');
-  clearTimeout(_nt); _nt = setTimeout(()=>el.classList.remove('show'), 3000);
-}
-function updateDate() {
-  document.getElementById('live-date').textContent = new Date().toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'long',year:'numeric'});
-}
-updateDate(); setInterval(updateDate, 60000);
-document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+window.showNotif = msg=>{ const el=document.getElementById('notif'); el.textContent=msg; el.classList.add('show'); clearTimeout(_nt); _nt=setTimeout(()=>el.classList.remove('show'),3000); };
+function updateDate(){ document.getElementById('live-date').textContent=new Date().toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'long',year:'numeric'}); }
+updateDate(); setInterval(updateDate,60000);
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
 </script>
 </body>
 </html>
